@@ -14,14 +14,14 @@ export const views: Record<ViewKey, ViewProfile> = {
     focusText: "识别高频问题、治理底层数据、设计轻量工具，并通过反馈闭环推动团队真正使用。",
     workTitle: "三个从 0 到 1 落地的数字化方案。",
     workSummary: "重点查看产品思路、实现过程、使用反馈与效率提升。",
-    strengths: ["业务流程数字化", "AI 辅助方案设计", "自动化工具落地"],
+    strengths: ["业务流程数字化", "AI 辅助方案设计", "数字工具落地"],
     highlights: [
       { value: "3000", suffix: "+条", label: "审批知识可直接查询" },
       { value: "4690", suffix: "次", label: "全年智能体实际使用" },
       { value: "20", suffix: "+名", label: "同事日常使用工具" },
       { value: "50", suffix: "%+", label: "重复处理效率提升" },
     ],
-    projectOrder: ["agent", "automation", "dashboard"],
+    projectOrder: ["agent", "dashboard"],
     capabilityOrder: ["数字化实现", "数据分析", "业务流程与运营"],
     evidenceOrder: [],
   },
@@ -65,7 +65,7 @@ export const views: Record<ViewKey, ViewProfile> = {
       { value: "52", suffix: "个", label: "标准化模板" },
       { value: "90", suffix: "%+", label: "高频场景覆盖" },
     ],
-    projectOrder: ["agent", "dashboard", "automation"],
+    projectOrder: ["agent", "dashboard"],
     capabilityOrder: ["业务流程与运营", "数据分析", "数字化实现"],
     evidenceOrder: [3, 4, 5, 2, 0, 1],
   },
@@ -77,7 +77,7 @@ export const experiences = [
     organization: "深圳平安综合金融服务有限公司中心分公司",
     role: "资金财务专员｜账户运营、数据分析与流程优化",
     summary:
-      "负责 145 个公司主体的对公账户全流程运营，累计处理 500+ 笔账户业务；推动审批链智能体、回执工具、标准化模板及协定存款看板落地。",
+      "负责 145 个公司主体的对公账户全流程运营，累计处理 500+ 笔账户业务；推动审批链智能体、知识数据治理及协定存款看板落地。",
     type: "工作经历",
   },
   {
@@ -117,32 +117,6 @@ export const projects: Project[] = [
     reflection:
       "AI 项目的核心不是模型本身，而是稳定的数据口径、明确的使用场景和可持续迭代的反馈闭环。",
     visual: "agent",
-  },
-  {
-    id: "automation",
-    index: "03",
-    title: "回执处理自动化工具",
-    subtitle: "把重复办公动作封装为可配置的网页工具",
-    tags: ["流程优化", "Python", "Flask", "自动化"],
-    metrics: [
-      { value: "20+", label: "日常用户" },
-      { value: "3–5min", label: "处理耗时" },
-      { value: "50%+", label: "效率提升" },
-    ],
-    problem:
-      "回执处理存在文件命名混乱、字段重复复制和交接单填写繁琐等问题，单次处理约需 15 分钟。",
-    analysis:
-      "拆解操作步骤后发现，规则明确但重复频繁的命名与字段映射最适合自动化；同时必须保留预览和配置能力，避免工具变成新的黑箱。",
-    actions: [
-      "支持 Excel 模板导入，按日期、客户名称与业务类型组合批量命名。",
-      "支持批量导入或单条粘贴，自动解析字段并生成个性化交接单。",
-      "采用 Python Flask、HTML、CSS 与 JavaScript 实现上传、预览和下载。",
-    ],
-    result:
-      "推广至 20+ 名同事日常使用，将重复操作从约 15 分钟缩短至 3–5 分钟，整体效率提升 50% 以上。",
-    reflection:
-      "内部工具不需要堆功能。把高频步骤做短、把结果做可预览、把规则做可配置，才更容易真正被团队采用。",
-    visual: "automation",
   },
   {
     id: "dashboard",
@@ -186,7 +160,7 @@ export const capabilities = [
   {
     title: "数字化实现",
     level: "方案落地",
-    items: ["Python / Pandas", "AI 辅助开发", "自动化工具", "知识库运营"],
+    items: ["Python / Pandas", "AI 辅助开发", "流程数据化", "知识库运营"],
   },
 ];
 

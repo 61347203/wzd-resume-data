@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   capabilities,
   certificates,
@@ -20,58 +20,6 @@ const Icon = ({ name }: { name: "arrow" | "download" | "mail" | "spark" }) => {
   };
   return <svg viewBox="0 0 24 24" aria-hidden="true">{paths[name]}</svg>;
 };
-
-function TableScrollbar({
-  targetRef,
-  label,
-  refreshKey,
-}: {
-  targetRef: React.RefObject<HTMLDivElement | null>;
-  label: string;
-  refreshKey?: string;
-}) {
-  const [maximum, setMaximum] = useState(0);
-  const [position, setPosition] = useState(0);
-
-  useEffect(() => {
-    const target = targetRef.current;
-    if (!target) return;
-
-    const update = () => {
-      setMaximum(Math.max(0, target.scrollWidth - target.clientWidth));
-      setPosition(target.scrollLeft);
-    };
-    update();
-    target.addEventListener("scroll", update, { passive: true });
-    const observer = new ResizeObserver(update);
-    observer.observe(target);
-    return () => {
-      target.removeEventListener("scroll", update);
-      observer.disconnect();
-    };
-  }, [targetRef, refreshKey]);
-
-  return (
-    <div className="table-scrollbar">
-      <span>←</span>
-      <input
-        type="range"
-        min="0"
-        max={Math.max(maximum, 1)}
-        value={Math.min(position, Math.max(maximum, 1))}
-        disabled={maximum === 0}
-        aria-label={label}
-        onInput={(event) => {
-          const nextPosition = Number(event.currentTarget.value);
-          setPosition(nextPosition);
-          targetRef.current?.scrollTo({ left: nextPosition });
-        }}
-      />
-      <span>→</span>
-      <small>{maximum > 0 ? "拖动查看完整字段" : "字段已完整显示"}</small>
-    </div>
-  );
-}
 
 type AiScenario = {
   keywords: string[];
@@ -192,36 +140,8 @@ const dashboardSets = {
   },
 } as const;
 
-const receiptSamples = [
-  { dispatcher: "林晓", sequence: "081", task: "BG20260081", reported: "是，系统 A", product: "不涉及", billing: "华南主体 A", management: "管理主体 A", principal: "陈宁", urgent: "否", name: "星河科技有限公司", account: "**** 2841", ownership: "自有", region: "境内", purpose: "一般结算", bankType: "国有银行", bank: "银行 A 广州支行", remote: "否", business: "开立账户", detail: "开立一般结算户", headquarters: "是", approval: "许言", approvalRegion: "广州", counter: "周然", date: "2026-06-12", currency: "人民币" },
-  { dispatcher: "陈宁", sequence: "082", task: "BG20260082", reported: "否", product: "不涉及", billing: "华南主体 B", management: "管理主体 B", principal: "苏禾", urgent: "是", name: "云帆商贸有限公司", account: "**** 5176", ownership: "客户", region: "境内", purpose: "日常经营", bankType: "股份银行", bank: "银行 B 深圳支行", remote: "是", business: "变更账户", detail: "变更工商及网银信息", headquarters: "否", approval: "顾清", approvalRegion: "深圳", counter: "林晓", date: "2026-06-12", currency: "人民币" },
-  { dispatcher: "周然", sequence: "083", task: "BG20260083", reported: "是，系统 B", product: "不涉及", billing: "华南主体 C", management: "管理主体 C", principal: "叶青", urgent: "否", name: "晨曦服务有限公司", account: "**** 9032", ownership: "自有", region: "境内", purpose: "项目专户", bankType: "城商行", bank: "银行 C 佛山支行", remote: "否", business: "销户业务", detail: "账户销户及资料回收", headquarters: "否", approval: "沈舟", approvalRegion: "佛山", counter: "陈宁", date: "2026-06-13", currency: "人民币" },
-] as const;
-
-const receiptDocuments = [
-  { id: "open", label: "开户申请书/表", full: "账户开户申请书/表（若有，请复制到下面）" },
-  { id: "change", label: "变更申请书/表", full: "账户变更申请书/表（若有，请复制到下面）" },
-  { id: "close", label: "销户申请书/表", full: "账户销户申请书/表（若有，请复制到下面）" },
-  { id: "seal", label: "印鉴卡复印件", full: "印鉴卡复印件（若有，请复制到下面）" },
-  { id: "agreement", label: "账户管理协议", full: "账户管理协议（若有，请复制到下面）" },
-  { id: "direct", label: "银企直联申请表", full: "银企直联服务申请（变更）表（若有，请复制到下面）" },
-  { id: "online", label: "企业网银申请表", full: "网上企业银行服务申请/变更表（若有，请复制到下面）" },
-  { id: "deposit", label: "协定存款协议", full: "协定存款协议（若有，请复制到下面）" },
-  { id: "other", label: "其他回执", full: "其他回执：请列明资料全称，中间用 / 隔开" },
-] as const;
-
-const namingRows = [
-  ["业务回执", "_", "星河科技有限公司", "2841", "_", "银行A", "_", "20260612"],
-  ["印鉴卡", "_", "云帆商贸有限公司", "5176", "_", "银行B", "_", "20260612"],
-  ["账户协议", "_", "晨曦服务有限公司", "9032", "_", "银行C", "_", "20260612"],
-] as const;
-
-const namingFiles = ["扫描文件_001.pdf", "扫描文件_002.pdf", "扫描文件_003.pdf"] as const;
-
 function CapabilityLab() {
-  const sourceTableRef = useRef<HTMLDivElement>(null);
-  const outputTableRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState<"ai" | "data" | "workflow">("data");
+  const [active, setActive] = useState<"data" | "ai">("data");
   const [query, setQuery] = useState(aiScenarios[0].question);
   const [answer, setAnswer] = useState(aiScenarios[0]);
   const [searching, setSearching] = useState(false);
@@ -236,23 +156,7 @@ function CapabilityLab() {
   const [dataView, setDataView] = useState<"overview" | "rate" | "expiry">("overview");
   const [showAllUpcoming, setShowAllUpcoming] = useState(false);
   const [exported, setExported] = useState(false);
-  const [toolDemo, setToolDemo] = useState<"receipt" | "naming">("receipt");
-  const [receiptStep, setReceiptStep] = useState<1 | 2 | 3>(1);
-  const [sourceExpanded, setSourceExpanded] = useState(false);
-  const [outputExpanded, setOutputExpanded] = useState(false);
-  const [selectedDocuments, setSelectedDocuments] = useState<string[]>(["open", "seal", "agreement"]);
-  const [recordDocuments, setRecordDocuments] = useState<Record<string, string[]>>({
-    BG20260081: ["open", "seal", "agreement"],
-    BG20260082: ["change", "seal", "direct", "online"],
-    BG20260083: ["close", "agreement", "other"],
-  });
-  const [namingColumns, setNamingColumns] = useState<5 | 8>(5);
   const data = dashboardSets[bank];
-  const displayedDocumentIds = receiptDocuments
-    .filter((document) => selectedDocuments.includes(document.id)
-      || receiptSamples.some((item) => recordDocuments[item.task]?.includes(document.id)))
-    .map((document) => document.id);
-  const generatedNames = namingRows.map((row) => `${row.slice(0, namingColumns).join("").replace(/_+$/, "")}.pdf`);
   const institutionMax = Math.max(...data.institutions.map(([, value]) => value));
   const expiryMax = Math.ceil(Math.max(...data.expiry) / 50) * 50;
   const visibleUpcoming = showAllUpcoming ? data.upcoming : data.upcoming.slice(0, 3);
@@ -267,22 +171,6 @@ function CapabilityLab() {
     },
     { total: 0, stops: [] as string[] },
   ).stops.join(", ");
-
-  function toggleRecordDocument(task: string, documentId: string) {
-    setRecordDocuments((current) => {
-      const documents = current[task] ?? [];
-      return {
-        ...current,
-        [task]: documents.includes(documentId)
-          ? documents.filter((item) => item !== documentId)
-          : [...documents, documentId],
-      };
-    });
-  }
-
-  function syncDocumentsToAll() {
-    setRecordDocuments(Object.fromEntries(receiptSamples.map((item) => [item.task, [...selectedDocuments]])));
-  }
 
   function runAiSearch(nextQuery = query) {
     const normalized = nextQuery.trim();
@@ -408,9 +296,8 @@ function CapabilityLab() {
       </div>
       <div className="lab-shell">
         <div className="lab-tabs" role="tablist" aria-label="选择能力演示">
-          <button type="button" role="tab" aria-selected={active === "ai"} className={active === "ai" ? "active" : ""} onClick={() => setActive("ai")}><i className="lab-icon ai">AI</i><span><b>AI 应用</b><small>意图识别与知识匹配</small></span></button>
           <button type="button" role="tab" aria-selected={active === "data"} className={active === "data" ? "active" : ""} onClick={() => setActive("data")}><i className="lab-icon data">▥</i><span><b>数据分析</b><small>筛选、指标与业务建议</small></span></button>
-          <button type="button" role="tab" aria-selected={active === "workflow"} className={active === "workflow" ? "active" : ""} onClick={() => setActive("workflow")}><i className="lab-icon flow">↯</i><span><b>自动化工具</b><small>数据解析与模板生成</small></span></button>
+          <button type="button" role="tab" aria-selected={active === "ai"} className={active === "ai" ? "active" : ""} onClick={() => setActive("ai")}><i className="lab-icon ai">AI</i><span><b>AI 应用 / 知识治理</b><small>知识检索与反馈闭环</small></span></button>
         </div>
 
         <div className="lab-panel">
@@ -493,85 +380,6 @@ function CapabilityLab() {
             </div>
           )}
 
-          {active === "workflow" && (
-            <div className="tool-lab">
-              <div className="tool-demo-tabs" role="tablist" aria-label="选择自动化工具">
-                <button type="button" role="tab" aria-selected={toolDemo === "receipt"} className={toolDemo === "receipt" ? "active" : ""} onClick={() => setToolDemo("receipt")}><b>回执交接工具</b><span>字段转换与材料列控制</span></button>
-                <button type="button" role="tab" aria-selected={toolDemo === "naming"} className={toolDemo === "naming" ? "active" : ""} onClick={() => setToolDemo("naming")}><b>批量文件命名</b><span>文件包与 Excel 清单自动匹配</span></button>
-              </div>
-
-              {toolDemo === "receipt" ? (
-                <div className="receipt-demo">
-                  <div className="receipt-progress">
-                    {["导入待办数据", "筛选、重排与补充", "生成交接表"].map((item, index) => <div className={receiptStep >= index + 1 ? "active" : ""} key={item}><span>{receiptStep > index + 1 ? "✓" : index + 1}</span><b>{item}</b></div>)}
-                  </div>
-
-                  {receiptStep === 1 && <div className="receipt-source">
-                    <div className="tool-panel-head"><div><small>INPUT</small><h3>临柜待办表</h3><p>支持导入 Excel 或粘贴整批待办数据。原表字段多、顺序固定，但交接表只需要其中一部分。</p></div><span>本批次 48 条 · 展示 3 条</span></div>
-                    <div className="table-view-toolbar"><div><b>{sourceExpanded ? "完整字段视图" : "关键字段视图"}</b><span>源表实际包含 46 个字段，默认只展示理解流程所需的 8 个</span></div><button type="button" onClick={() => setSourceExpanded((value) => !value)}>{sourceExpanded ? "收起完整字段" : "查看完整字段"}</button></div>
-                    <div className={`source-sheet-preview ${sourceExpanded ? "is-expanded" : "is-summary"}`} ref={sourceTableRef}>
-                      {sourceExpanded ? <>
-                        <div className="sheet-row sheet-head"><span>派工人</span><span>序号</span><span>业务编号</span><span>是否报备</span><span>产品名称</span><span>计费主体</span><span>管理主体</span><span>委托人</span><span>是否紧急</span><span>户名</span><span>账号</span><span>自有/客户</span><span>境内/境外</span><span>账户用途</span><span>银行大类</span><span>银行名称</span><span>是否异地</span><span>业务类型</span><span>具体事项描述</span><span>是否总部账户</span><span>签报人</span><span>签报所属地</span><span>临柜人员</span><span>委托日期</span></div>
-                        {receiptSamples.map((item) => <div className="sheet-row" key={item.task}><span>{item.dispatcher}</span><span>{item.sequence}</span><span>{item.task}</span><span>{item.reported}</span><span>{item.product}</span><span>{item.billing}</span><span>{item.management}</span><span>{item.principal}</span><span>{item.urgent}</span><span>{item.name}</span><span>{item.account}</span><span>{item.ownership}</span><span>{item.region}</span><span>{item.purpose}</span><span>{item.bankType}</span><span>{item.bank}</span><span>{item.remote}</span><span>{item.business}</span><span>{item.detail}</span><span>{item.headquarters}</span><span>{item.approval}</span><span>{item.approvalRegion}</span><span>{item.counter}</span><span>{item.date}</span></div>)}
-                      </> : <>
-                        <div className="sheet-summary-row sheet-head"><span>业务编号</span><span>户名</span><span>账号</span><span>业务类型</span><span>银行名称</span><span>具体事项</span><span>临柜人员</span><span>委托日期</span></div>
-                        {receiptSamples.map((item) => <div className="sheet-summary-row" key={item.task}><span>{item.task}</span><span>{item.name}</span><span>{item.account}</span><span>{item.business}</span><span>{item.bank}</span><span>{item.detail}</span><span>{item.counter}</span><span>{item.date}</span></div>)}
-                      </>}
-                    </div>
-                    {sourceExpanded && <TableScrollbar targetRef={sourceTableRef} label="临柜待办表横向滚动" refreshKey="expanded" />}
-                    <div className="batch-footnote"><span>{sourceExpanded ? "按原临柜表顺序展示 24 个主要字段" : "默认提炼 8 个关键字段，降低阅读负担"}</span><b>仅展示 3 条待办记录，另有 45 条已折叠</b></div>
-                    <button className="tool-primary-action" type="button" onClick={() => setReceiptStep(2)}>解析 48 条待办数据 →</button>
-                  </div>}
-
-                  {receiptStep === 2 && <div className="receipt-editor">
-                    <div className="tool-panel-head"><div><small>FIELD TRANSFORM</small><h3>不是复制，而是筛选并重组</h3><p>工具从待办表中只提取交接所需字段，按目标模板重新排序，再补充本批次实际收到的材料。</p></div><span>48 条记录一次处理</span></div>
-                    <div className="transform-summary"><div><b>46</b><span>源表字段</span></div><i>→</i><div><b>13</b><span>提取并重排</span></div><i>+</i><div><b>9</b><span>可选材料列</span></div></div>
-                    <div className="field-transform">
-                      <div><small>保留并重排（展示部分映射）</small><p>{["任务编号 → AMS任务编号", "计费主体 → 计费主体", "管理主体 → 管理主体", "委托人 → 委托人", "业务类型 → 业务类型", "委托日期 → 业务日期", "银行名称 → 开户行名称", "账号 → 账号", "临柜人员 → 资料移交人"].map((item) => <span key={item}>✓ {item}</span>)}</p></div>
-                      <div className="discarded"><small>不进入交接表</small><p>{["是否报备", "产品名称", "是否紧急", "账户用途", "业务说明", "签报所属地"].map((item) => <span key={item}>− {item}</span>)}</p></div>
-                    </div>
-                    <div className="document-selector batch-selector"><div className="selector-head"><div><b>批量设置公共材料</b><small>先选择多数账号都有的材料，再同步至全部记录</small></div><button type="button" onClick={syncDocumentsToAll}>同步至全部账号</button></div><div>{receiptDocuments.map((document) => <label title={document.full} key={document.id}><input type="checkbox" checked={selectedDocuments.includes(document.id)} onChange={() => setSelectedDocuments((current) => current.includes(document.id) ? current.filter((item) => item !== document.id) : [...current, document.id])} /><span>{document.label}</span></label>)}</div></div>
-                    <div className="record-material-editor"><div className="record-editor-head"><b>逐条调整材料</b><span>某个账号缺少或多出材料时，可单独修改，不影响其他记录</span></div>{receiptSamples.map((item) => <div className="record-material-row" key={item.task}><div><b>{item.name}</b><small>{item.account} · {item.business}</small></div><section>{receiptDocuments.map((document) => <label title={document.full} key={document.id}><input type="checkbox" checked={recordDocuments[item.task]?.includes(document.id) ?? false} onChange={() => toggleRecordDocument(item.task, document.id)} /><span>{document.label}</span></label>)}</section></div>)}</div>
-                    <div className="tool-actions"><button type="button" onClick={() => setReceiptStep(1)}>返回</button><button className="primary" type="button" onClick={() => setReceiptStep(3)}>生成交接表预览 →</button></div>
-                  </div>}
-
-                  {receiptStep === 3 && <div className="receipt-output">
-                    <div className="tool-panel-head"><div><small>OUTPUT</small><h3>回执交接表预览</h3><p>待办表与交接表逐行对应：导入 48 条待办记录，生成 48 条交接记录。13 个固定基础字段已按模板顺序重排。</p></div><span>48 条记录 · 13 个基础字段 + {displayedDocumentIds.length} 个材料列</span></div>
-                    <div className="record-reconcile"><div><b>48</b><span>待办表输入</span></div><i>逐行解析与重排</i><div><b>48</b><span>交接表输出</span></div><em>✓ 数量校验一致</em></div>
-                    <div className="column-rule"><span>基础字段固定保留</span><i /><span className="active">已收到材料列显示</span><i /><span className="muted">未收到材料列隐藏</span></div>
-                    <div className="table-view-toolbar"><div><b>{outputExpanded ? "完整交接模板" : "结果摘要视图"}</b><span>完整结果包含 13 个基础字段和动态材料列，默认只展示关键结果</span></div><button type="button" onClick={() => setOutputExpanded((value) => !value)}>{outputExpanded ? "收起完整字段" : "查看完整字段"}</button></div>
-                    <div className={`output-table material-output ${outputExpanded ? "is-expanded" : "is-summary"}`} ref={outputTableRef}>
-                      {outputExpanded ? <>
-                        <div className="output-row output-head" style={{ gridTemplateColumns: `42px 92px 96px 96px 70px 82px 86px 120px 90px 120px 82px 82px 82px repeat(${Math.max(displayedDocumentIds.length, 1)}, 104px)` }}><span>序号</span><span>AMS任务编号</span><span>计费主体</span><span>管理主体</span><span>委托人</span><span>业务类型</span><span>业务日期</span><span>开户行名称</span><span>账号</span><span>账户名称</span><span>币种</span><span>资料移交人</span><span>资料归档人</span>{displayedDocumentIds.length > 0 ? receiptDocuments.filter((document) => displayedDocumentIds.includes(document.id)).map((document) => <span title={document.full} key={document.id}>{document.label}</span>) : <span>暂无材料列</span>}</div>
-                        {receiptSamples.map((item, index) => <div className="output-row" style={{ gridTemplateColumns: `42px 92px 96px 96px 70px 82px 86px 120px 90px 120px 82px 82px 82px repeat(${Math.max(displayedDocumentIds.length, 1)}, 104px)` }} key={item.task}><span>{index + 1}</span><span>{item.task}</span><span>{item.billing}</span><span>{item.management}</span><span>{item.principal}</span><span>{item.business}</span><span>{item.date}</span><span>{item.bank}</span><span>{item.account}</span><span>{item.name}</span><span>{item.currency}</span><span>{item.counter}</span><span>许宁（化名）</span>{displayedDocumentIds.length > 0 ? receiptDocuments.filter((document) => displayedDocumentIds.includes(document.id)).map((document) => recordDocuments[item.task]?.includes(document.id) ? <span className="material-cell" key={document.id}>✓ 1 份</span> : <span className="material-cell missing" key={document.id}>—</span>) : <span className="empty-cell">待选择材料</span>}</div>)}
-                      </> : <>
-                        <div className="output-summary-row output-head"><span>序号</span><span>AMS任务编号</span><span>账户名称</span><span>业务类型</span><span>业务日期</span><span>资料移交人</span><span>材料状态</span></div>
-                        {receiptSamples.map((item, index) => <div className="output-summary-row" key={item.task}><span>{index + 1}</span><span>{item.task}</span><span>{item.name}</span><span>{item.business}</span><span>{item.date}</span><span>{item.counter}</span><span className="material-summary">{recordDocuments[item.task]?.length ?? 0} / 9 类已收</span></div>)}
-                      </>}
-                    </div>
-                    {outputExpanded && <TableScrollbar targetRef={outputTableRef} label="回执交接表横向滚动" refreshKey={displayedDocumentIds.join(",")} />}
-                    <div className="batch-footnote"><span>仅预览 3 / 48 条交接记录</span><b>其余 45 条已按相同规则生成</b></div>
-                    <div className="hidden-columns">{receiptDocuments.filter((document) => !displayedDocumentIds.includes(document.id)).map((document) => <span title={document.full} key={document.id}>整批隐藏：{document.label}</span>)}</div>
-                    <div className="automation-impact"><span>48 条数据完成 13 个字段取数、重排与逐条材料控制</span><b>15 min → 3–5 min</b><em>减少错列、漏填和逐列隐藏操作</em></div>
-                    <div className="workflow-value"><b>这个工具解决什么？</b><span>把人工复制、改列顺序、逐条核对材料和隐藏空列，合并成一次批量生成。</span></div>
-                    <div className="tool-actions"><button type="button" onClick={() => setReceiptStep(2)}>修改资料</button><button className="primary" type="button" onClick={() => setReceiptStep(1)}>重新演示</button></div>
-                  </div>}
-                </div>
-              ) : (
-                <div className="naming-demo">
-                  <div className="tool-panel-head"><div><small>BATCH RENAME</small><h3>文件包与命名清单按顺序匹配</h3><p>一次导入待命名文件和 Excel 清单，工具按文件顺序读取清单字段、拼接名称，并在执行前预览对应关系。</p></div><span>3 个文件 · 3 条清单 · 数量一致</span></div>
-                  <div className="naming-inputs">
-                    <div><span className="input-icon">ZIP</span><section><b>待命名文件包</b><small>{namingFiles.join(" · ")}</small></section><em>3 个文件</em></div>
-                    <div><span className="input-icon excel">XLS</span><section><b>批量命名清单.xlsx</b><small>回执类型 / 分隔符 / 账户名称 / 账号 / 分隔符 / 银行 / 分隔符 / 日期</small></section><em>8 列字段</em></div>
-                  </div>
-                  <div className="naming-rule-bar"><div><b>组合前几列作为文件名？</b><span>默认取前 5 列，也可按业务模板扩展到前 8 列</span></div><div>{([5, 8] as const).map((count) => <button type="button" className={namingColumns === count ? "active" : ""} onClick={() => setNamingColumns(count)} key={count}>前 {count} 列</button>)}</div></div>
-                  <div className="excel-rule-preview"><div className="rule-row rule-head">{["A 回执类型", "B", "C 账户名称", "D 账号", "E", "F 银行", "G", "H 日期"].map((item, index) => <span className={index < namingColumns ? "used" : ""} key={item}>{item}</span>)}</div><div className="rule-row">{namingRows[0].map((item, index) => <span className={index < namingColumns ? "used" : ""} key={`${item}-${index}`}>{item}</span>)}</div></div>
-                  <div className="rename-preview"><div className="rename-head"><span>原文件</span><i>顺序匹配</i><b>生成文件名</b></div>{generatedNames.map((name, index) => <div key={name}><span>{namingFiles[index]}</span><i>#{index + 1} → #{index + 1}</i><b>{name}</b></div>)}</div>
-                  <div className="rebuild-note"><Icon name="spark" /><p><b>执行前先校验，再批量改名</b>文件数与清单行数不一致时停止执行；预览可以及时发现顺序错位、空字段和重名，避免批量改错后再逐个返工。</p></div>
-                </div>
-              )}
-            </div>
-          )}
         </div>
       </div>
       {feedbackOpen && (
@@ -657,21 +465,6 @@ function ProjectVisual({ type }: { type: Project["visual"] }) {
           <div><b>林晓</b><i /><b>陈宁</b><i /><b>周然</b><i /><b>许言</b><i /><b>顾清</b><i /><b>沈舟</b><i /><b>唐悦</b><i /><b>陆川</b></div>
           <span>备注：涉及法审时，增加法审同事“韩一”（姓名均为化名）</span>
         </div>
-      </div>
-      {controls}
-      </div>
-    );
-  }
-
-  if (type === "automation") {
-    return (
-      <div className={`motion-demo ${paused ? "is-paused" : ""}`} key={`tool-${run}`}>
-      <div className="product-mock tool-mock" aria-label="回执自动化工具流程动画">
-        <div className="mock-toolbar"><i /><i /><i /><span>EasyReceipt</span></div>
-        <div className="tool-progress"><b>1</b><i /><b>2</b><i /><b>3</b></div>
-        <div className="drop-zone"><span>↑</span><b>导入 3 份回执文件</b><small>读取 Excel 模板与业务字段</small></div>
-        <div className="parsed-row"><span>回执文件_01.pdf</span><b><i /> 已解析</b></div>
-        <button type="button" tabIndex={-1}><span>生成交接单</span><b>✓ 已完成</b></button>
       </div>
       {controls}
       </div>
@@ -890,7 +683,7 @@ export default function App() {
             <h2>同一套数据方法，也可以用于知识治理。</h2>
             <p>审批链智能体展示如何将分散业务信息结构化，并通过检索、反馈和持续迭代进入实际使用。</p>
           </div>
-          <div className="secondary-grid">
+          <div className={`secondary-grid ${orderedProjects.length === 2 ? "two-projects" : ""}`}>
             {orderedProjects.slice(1).map((project) => <SecondaryProjectCard project={project} key={project.id} />)}
           </div>
         </section>
@@ -924,7 +717,7 @@ export default function App() {
               <div className="recognition-copy">
                 <small>02 · 持续贡献</small>
                 <h3>2025 年度“数字化筑梦师”</h3>
-                <p>年度荣誉对应持续推动智能体、自动化工具和数据看板进入实际工作流程。</p>
+                <p>年度荣誉对应持续推动数据看板、知识治理与智能体应用进入实际工作流程。</p>
                 <div><b>对应能力</b><span>持续推进项目、收集使用反馈，并根据实际问题完成迭代。</span></div>
               </div>
             </article>

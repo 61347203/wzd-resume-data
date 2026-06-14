@@ -29,5 +29,5 @@ export interface Project {
   actions: string[];
   result: string;
   reflection: string;
-  visual: "agent" | "automation" | "dashboard";
+  visual: "agent" | "dashboard";
 }

@@ -94,7 +94,7 @@ svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width:
 .lab-section .section-title span { color: #64d2ff; }
 .lab-section .section-title p { color: rgba(255,255,255,.55); }
 .lab-shell { overflow: hidden; border: 1px solid rgba(255,255,255,.12); border-radius: 30px; background: #151518; box-shadow: 0 35px 90px rgba(0,0,0,.28); }
-.lab-tabs { padding: 12px; display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; border-bottom: 1px solid rgba(255,255,255,.1); background: #101012; }
+.lab-tabs { padding: 12px; display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; border-bottom: 1px solid rgba(255,255,255,.1); background: #101012; }
 .lab-tabs button { padding: 14px 16px; display: flex; align-items: center; gap: 12px; border: 1px solid transparent; border-radius: 16px; color: rgba(255,255,255,.5); background: transparent; text-align: left; cursor: pointer; transition: .2s ease; }
 .lab-tabs button:hover { background: rgba(255,255,255,.04); }
 .lab-tabs button.active { color: #fff; border-color: rgba(255,255,255,.1); background: rgba(255,255,255,.08); box-shadow: inset 0 1px rgba(255,255,255,.08); }
@@ -415,21 +415,6 @@ svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width:
 .route-card > div b { flex: 1; min-width: 0; padding: 11px 1px; border-radius: 9px; background: rgba(255,255,255,.08); text-align: center; font-size: 6.5px; }
 .route-card > div i { width: 7px; height: 1px; flex: 0 0 auto; background: #4578a9; transform: scaleX(0); transform-origin: left; animation: connector-in 7s linear infinite; }
 .route-card > span { display: block; color: rgba(255,255,255,.45); font-size: 8px; line-height: 1.55; }
-.tool-mock { background: #fff; color: #1d1d1f; }
-.tool-mock .mock-toolbar { color: #777; border-bottom: 1px solid #eee; }
-.tool-mock .mock-toolbar i { background: #ddd; }
-.tool-progress { margin: 32px auto; display: flex; align-items: center; justify-content: center; }
-.tool-progress b { width: 27px; height: 27px; display: grid; place-items: center; border-radius: 50%; color: white; background: #c8d3df; font-size: 9px; animation: progress-step 7s ease-in-out infinite; }
-.tool-progress b:nth-of-type(2) { animation-delay: .25s; }.tool-progress b:nth-of-type(3) { animation-delay: .5s; }
-.tool-progress i { width: 65px; height: 2px; background: linear-gradient(90deg,var(--blue) 50%,#dce8f5 50%); background-size: 200% 100%; background-position: 100% 0; animation: progress-line 7s ease-in-out infinite; }
-.drop-zone { min-height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1.5px dashed #b7c9dc; border-radius: 18px; background: #f7fafc; }
-.drop-zone > span { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px; color: white; background: var(--blue); animation: upload-bounce 7s ease-in-out infinite; }
-.drop-zone b { margin-top: 12px; font-size: 12px; }.drop-zone small { margin-top: 5px; color: #999; font-size: 8px; }
-.parsed-row { margin-top: 18px; padding: 15px; display: flex; justify-content: space-between; border-radius: 12px; background: #f5f5f7; font-size: 9px; opacity: 0; transform: translateY(8px); animation: parsed-in 7s ease-in-out infinite; }
-.parsed-row b { color: #19a44a; }
-.parsed-row b i { display: inline-block; width: 6px; height: 6px; margin-right: 4px; border-radius: 50%; background: #30d158; }
-.tool-mock > button { position: relative; width: 100%; margin-top: 18px; padding: 13px; border: 0; border-radius: 12px; color: #fff; background: var(--blue); font-size: 10px; overflow: hidden; }
-.tool-mock > button span { animation: button-label 7s ease-in-out infinite; }.tool-mock > button b { position: absolute; inset: 0; display: grid; place-items: center; opacity: 0; background: #30a14e; animation: button-success 7s ease-in-out infinite; }
 .dashboard-mock { color: #fff; background: linear-gradient(160deg, #071a33, #102f59); }
 .mini-kpis { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 25px; }
 .mini-kpis div { padding: 14px 11px; border-radius: 13px; background: rgba(255,255,255,.07); opacity: 0; transform: translateY(8px); animation: kpi-in 7s ease-in-out infinite; }
@@ -445,6 +430,12 @@ svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width:
 .more-work-section { background: #fff; padding-top: 20px; }
 .secondary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
 .secondary-project { overflow: hidden; border: 1px solid #e4e4e7; border-radius: 28px; background: #f7f7f9; }
+.secondary-grid.two-projects { grid-template-columns: 1fr; }
+.secondary-grid.two-projects .secondary-project { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(340px, .92fr); }
+.secondary-grid.two-projects .secondary-visual { height: 520px; padding: 40px 34px 0; }
+.secondary-grid.two-projects .secondary-visual .product-mock { min-height: 560px; transform: scale(.86); }
+.secondary-grid.two-projects .secondary-copy { padding: 48px; display: flex; flex-direction: column; justify-content: center; }
+.secondary-grid.two-projects .secondary-copy > p { min-height: 0; }
 .secondary-visual { height: 310px; padding: 26px 26px 0; overflow: hidden; background: linear-gradient(180deg, #e9f3ff, #f7f7f9); }
 .secondary-visual.automation { background: linear-gradient(180deg, #edf7ff, #f7f7f9); }
 .secondary-visual.dashboard { background: linear-gradient(180deg, #e9ecff, #f7f7f9); }
@@ -520,6 +511,10 @@ footer { min-height: 70px; padding: 0 max(28px, calc((100vw - 1120px)/2)); displ
   .overview-charts,.expiry-layout { grid-template-columns: 1fr; }
   .field-transform { grid-template-columns: 1fr; }
   .secondary-grid { grid-template-columns: 1fr; }
+  .secondary-grid.two-projects .secondary-project { grid-template-columns: 1fr; }
+  .secondary-grid.two-projects .secondary-visual { height: 390px; padding: 30px 28px 0; }
+  .secondary-grid.two-projects .secondary-visual .product-mock { min-height: 500px; transform: scale(.78); }
+  .secondary-grid.two-projects .secondary-copy { padding: 32px; }
   .recognition-grid { grid-template-columns: 1fr; }
   .background-grid { grid-template-columns: 1fr; }
   .contact-card { align-items: flex-start; flex-direction: column; }
@@ -573,30 +568,6 @@ footer { min-height: 70px; padding: 0 max(28px, calc((100vw - 1120px)/2)); displ
   .expiry-chart-body { height: 245px; }
   .currency-row { grid-template-columns: repeat(2,1fr); gap: 12px 0; }
   .upcoming-head,.upcoming-table p { grid-template-columns: .75fr 1fr .9fr .85fr; }
-  .tool-lab { padding: 16px 10px; }
-  .tool-demo-tabs { grid-template-columns: 1fr; }
-  .receipt-demo,.naming-demo { padding: 18px 14px; border-radius: 20px; }
-  .receipt-progress b { font-size: 7px; }
-  .receipt-progress > div { gap: 5px; }
-  .receipt-progress > div:not(:last-child)::after { left: 31px; right: 5px; }
-  .tool-panel-head { flex-direction: column; gap: 10px; }
-  .tool-panel-head > span { white-space: normal; }
-  .source-sheet-preview,.output-table { overflow-x: auto; }
-  .parsed-records,.naming-inputs { grid-template-columns: 1fr; }
-  .batch-footnote,.selector-head,.record-editor-head,.naming-rule-bar,.table-view-toolbar { align-items: flex-start; flex-direction: column; }
-  .table-view-toolbar button { width: 100%; }
-  .sheet-summary-row { min-width: 760px; }
-  .output-summary-row { min-width: 700px; }
-  .record-material-row { grid-template-columns: 1fr; }
-  .transform-summary { gap: 8px; padding: 12px 8px; }
-  .transform-summary div { min-width: 65px; }
-  .column-rule { overflow-x: auto; }.column-rule span { flex: 0 0 auto; }.column-rule i { flex: 0 0 12px; }
-  .record-reconcile { flex-wrap: wrap; gap: 8px 12px; }.record-reconcile em { width: 100%; margin-left: 0; text-align: center; }
-  .tool-actions { display: grid; grid-template-columns: 1fr 1fr; }
-  .automation-impact { grid-template-columns: 1fr; }
-  .automation-impact b { grid-row: auto; grid-column: auto; }
-  .workflow-value { align-items: flex-start; flex-direction: column; }
-  .rename-preview > div { grid-template-columns: 78px 55px 1fr; padding: 11px 9px; }
   .more-work-section { padding-top: 0; }
   .section-title h2, .about-lead h2 { font-size: 39px; }
   .project-tabs { width: 100%; }
@@ -606,6 +577,9 @@ footer { min-height: 70px; padding: 0 max(28px, calc((100vw - 1120px)/2)); displ
   .product-mock { min-height: 410px; border-radius: 22px; }
   .secondary-visual { height: 260px; padding: 18px 18px 0; }
   .secondary-visual .product-mock { transform: scale(.68); }
+  .secondary-grid.two-projects .secondary-visual { height: 280px; padding: 20px 18px 0; }
+  .secondary-grid.two-projects .secondary-visual .product-mock { min-height: 430px; transform: scale(.68); }
+  .secondary-grid.two-projects .secondary-copy { padding: 26px 24px 28px; }
   .recognition-image { height: 260px; }
   .recognition-copy { padding: 22px; }
   .recognition-copy h3 { font-size: 21px; }
@@ -635,12 +609,6 @@ footer { min-height: 70px; padding: 0 max(28px, calc((100vw - 1120px)/2)); displ
 @keyframes dot-wave { 50%{transform:translateY(-3px)} }
 @keyframes route-in { 0%,48%{opacity:0;transform:translateY(14px) scale(.98)} 58%,88%{opacity:1;transform:none} 100%{opacity:0;transform:translateY(8px)} }
 @keyframes connector-in { 0%,59%{transform:scaleX(0)} 64%,89%{transform:scaleX(1)} 94%,100%{transform:scaleX(0)} }
-@keyframes progress-step { 0%,10%{background:#c8d3df} 22%,84%{background:var(--blue)} 100%{background:#c8d3df} }
-@keyframes progress-line { 0%,18%{background-position:100% 0} 42%,84%{background-position:0 0} 100%{background-position:100% 0} }
-@keyframes upload-bounce { 0%,10%,100%{transform:translateY(0)} 18%{transform:translateY(-8px)} 25%{transform:translateY(0)} }
-@keyframes parsed-in { 0%,30%{opacity:0;transform:translateY(8px)} 42%,84%{opacity:1;transform:none} 100%{opacity:0;transform:translateY(5px)} }
-@keyframes button-label { 0%,60%{opacity:1} 68%,84%{opacity:0} 100%{opacity:1} }
-@keyframes button-success { 0%,60%{opacity:0} 68%,84%{opacity:1} 100%{opacity:0} }
 @keyframes kpi-in { 0%,12%{opacity:0;transform:translateY(8px)} 25%,86%{opacity:1;transform:none} 100%{opacity:0;transform:translateY(5px)} }
 @keyframes draw-line { 0%,28%{stroke-dashoffset:760} 62%,88%{stroke-dashoffset:0} 100%{stroke-dashoffset:760} }
 @keyframes area-in { 0%,42%{opacity:0} 62%,88%{opacity:1} 100%{opacity:0} }
