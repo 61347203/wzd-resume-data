@@ -431,10 +431,10 @@ svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width:
 .secondary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
 .secondary-project { overflow: hidden; border: 1px solid #e4e4e7; border-radius: 28px; background: #f7f7f9; }
 .secondary-grid.two-projects { grid-template-columns: 1fr; }
-.secondary-grid.two-projects .secondary-project { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(340px, .92fr); }
-.secondary-grid.two-projects .secondary-visual { height: 520px; padding: 40px 34px 0; }
+.secondary-grid.two-projects .secondary-project { display: grid; grid-template-columns: minmax(0, 1.04fr) minmax(410px, .96fr); }
+.secondary-grid.two-projects .secondary-visual { height: 620px; padding: 70px 34px 0; }
 .secondary-grid.two-projects .secondary-visual .product-mock { min-height: 560px; transform: scale(.86); }
-.secondary-grid.two-projects .secondary-copy { padding: 48px; display: flex; flex-direction: column; justify-content: center; }
+.secondary-grid.two-projects .secondary-copy { padding: 42px 44px; display: flex; flex-direction: column; justify-content: center; }
 .secondary-grid.two-projects .secondary-copy > p { min-height: 0; }
 .secondary-visual { height: 310px; padding: 26px 26px 0; overflow: hidden; background: linear-gradient(180deg, #e9f3ff, #f7f7f9); }
 .secondary-visual.automation { background: linear-gradient(180deg, #edf7ff, #f7f7f9); }
@@ -445,6 +445,24 @@ svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width:
 .secondary-copy > span { color: var(--blue); font-size: 9px; font-weight: 700; letter-spacing: .08em; }
 .secondary-copy h3 { margin: 9px 0 0; font-size: 27px; letter-spacing: -.035em; }
 .secondary-copy > p { min-height: 62px; margin: 12px 0 0; color: var(--secondary); font-size: 12px; line-height: 1.7; }
+.secondary-copy .secondary-subtitle { min-height: 0; margin-top: 8px; }
+.secondary-metrics { margin-top: 22px; padding: 15px 0; display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.secondary-metrics div { padding: 0 12px; border-right: 1px solid var(--line); }
+.secondary-metrics div:first-child { padding-left: 0; }
+.secondary-metrics div:last-child { padding-right: 0; border-right: 0; }
+.secondary-metrics b { display: block; font-size: 19px; letter-spacing: -.03em; }
+.secondary-metrics span { display: block; margin-top: 3px; color: var(--secondary); font-size: 8px; }
+.secondary-flow { margin-top: 18px; display: grid; gap: 8px; }
+.secondary-flow > div { position: relative; padding: 11px 12px; display: grid; grid-template-columns: 24px 1fr; gap: 10px; border: 1px solid #e9e9ec; border-radius: 13px; background: #fafafa; }
+.secondary-flow > div:not(:last-child)::after { content: ""; position: absolute; left: 23px; bottom: -9px; width: 1px; height: 9px; background: #cddff2; }
+.secondary-flow > div > i { width: 22px; height: 22px; display: grid; place-items: center; border-radius: 7px; color: var(--blue); background: #e8f3ff; font-size: 8px; font-style: normal; font-weight: 700; }
+.secondary-flow section { min-width: 0; }
+.secondary-flow section small { color: var(--blue); font-size: 7px; font-weight: 700; letter-spacing: .1em; }
+.secondary-flow section b { margin-left: 7px; font-size: 10px; }
+.secondary-flow section p { margin: 4px 0 0; color: var(--secondary); font-size: 9px; line-height: 1.55; }
+.secondary-flow > div.is-result { border-color: #d8ede0; background: #f3faf5; }
+.secondary-flow > div.is-result > i { color: #23824b; background: #dff3e6; }
+.secondary-flow > div.is-result section small { color: #23824b; }
 .secondary-result { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); }
 .secondary-result small { display: block; margin-bottom: 7px; color: #30a14e; font-size: 8px; font-weight: 700; letter-spacing: .12em; }
 .secondary-result b { color: #3b3b40; font-size: 11px; line-height: 1.7; font-weight: 600; }
@@ -512,7 +530,7 @@ footer { min-height: 70px; padding: 0 max(28px, calc((100vw - 1120px)/2)); displ
   .field-transform { grid-template-columns: 1fr; }
   .secondary-grid { grid-template-columns: 1fr; }
   .secondary-grid.two-projects .secondary-project { grid-template-columns: 1fr; }
-  .secondary-grid.two-projects .secondary-visual { height: 390px; padding: 30px 28px 0; }
+  .secondary-grid.two-projects .secondary-visual { height: 420px; padding: 38px 28px 0; }
   .secondary-grid.two-projects .secondary-visual .product-mock { min-height: 500px; transform: scale(.78); }
   .secondary-grid.two-projects .secondary-copy { padding: 32px; }
   .recognition-grid { grid-template-columns: 1fr; }
@@ -580,6 +598,10 @@ footer { min-height: 70px; padding: 0 max(28px, calc((100vw - 1120px)/2)); displ
   .secondary-grid.two-projects .secondary-visual { height: 280px; padding: 20px 18px 0; }
   .secondary-grid.two-projects .secondary-visual .product-mock { min-height: 430px; transform: scale(.68); }
   .secondary-grid.two-projects .secondary-copy { padding: 26px 24px 28px; }
+  .secondary-metrics { margin-top: 18px; }
+  .secondary-metrics div { padding: 0 8px; }
+  .secondary-metrics b { font-size: 17px; }
+  .secondary-flow > div { padding: 11px 10px; }
   .recognition-image { height: 260px; }
   .recognition-copy { padding: 22px; }
   .recognition-copy h3 { font-size: 21px; }

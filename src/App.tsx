@@ -543,6 +543,29 @@ function ProjectBrowser({ orderedProjects }: { orderedProjects: Project[] }) {
 }
 
 function SecondaryProjectCard({ project }: { project: Project }) {
+  const projectFlow = [
+    {
+      label: "问题",
+      title: "背景痛点",
+      text: "审批链分散在邮件、Excel 中，人工查找耗时且易错。",
+    },
+    {
+      label: "处理",
+      title: "数据治理",
+      text: "统一主体、业务类型、审批路径、用印要求等字段和口径。",
+    },
+    {
+      label: "输出",
+      title: "知识库建设",
+      text: "沉淀 3000+ 条审批链记录，形成支持结构化检索的业务知识库。",
+    },
+    {
+      label: "效果",
+      title: "应用效果",
+      text: "累计 4690 次查询，覆盖部门 80% 以上同事，单次签报编辑时间缩短 7.5 分钟。",
+    },
+  ];
+
   return (
     <article className="secondary-project">
       <div className={`secondary-visual ${project.visual}`}>
@@ -551,8 +574,24 @@ function SecondaryProjectCard({ project }: { project: Project }) {
       <div className="secondary-copy">
         <span>{project.index} · {project.tags.slice(0, 2).join(" / ")}</span>
         <h3>{project.title}</h3>
-        <p>{project.problem}</p>
-        <div className="secondary-result"><small>RESULT</small><b>{project.result}</b></div>
+        <p className="secondary-subtitle">{project.subtitle}</p>
+        <div className="secondary-metrics">
+          {project.metrics.slice(0, 3).map((metric) => (
+            <div key={metric.label}><b>{metric.value}</b><span>{metric.label}</span></div>
+          ))}
+        </div>
+        <div className="secondary-flow">
+          {projectFlow.map((step, index) => (
+            <div className={index === projectFlow.length - 1 ? "is-result" : ""} key={step.label}>
+              <i>{index + 1}</i>
+              <section>
+                <small>{step.label}</small>
+                <b>{step.title}</b>
+                <p>{step.text}</p>
+              </section>
+            </div>
+          ))}
+        </div>
       </div>
     </article>
   );
