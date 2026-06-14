@@ -77,9 +77,9 @@ svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width:
 .impact-list span { display: block; max-width: 110px; margin-top: 7px; color: #59595e; font-size: 10px; line-height: 1.45; }
 .preview-card { color: #fff; background: linear-gradient(145deg, #1a1a1e, #303038); }
 .preview-card .card-top { color: rgba(255,255,255,.6); }
-.preview-copy { position: relative; z-index: 2; margin-top: 22px; max-width: 70%; }
-.preview-copy h3 { margin: 0; font-size: 23px; letter-spacing: -.03em; }
-.preview-copy p { margin: 7px 0 0; color: rgba(255,255,255,.55); font-size: 11px; line-height: 1.5; }
+.preview-copy { position: relative; z-index: 2; margin-top: 16px; max-width: 74%; padding-bottom: 38px; }
+.preview-copy h3 { margin: 0; font-size: 20px; line-height: 1.2; letter-spacing: -.03em; }
+.preview-copy p { margin: 6px 0 0; display: -webkit-box; overflow: hidden; color: rgba(255,255,255,.55); font-size: 10px; line-height: 1.45; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
 .preview-card > a { position: absolute; z-index: 2; left: 26px; bottom: 24px; display: flex; gap: 5px; align-items: center; color: #64b5ff; font-size: 12px; font-weight: 600; }
 .preview-orb { position: absolute; right: -20px; bottom: -45px; width: 175px; height: 175px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #64d2ff, #0a84ff 35%, #4d33a8 70%); box-shadow: 0 0 50px rgba(10,132,255,.42); }
 .preview-orb i { position: absolute; border: 1px solid rgba(255,255,255,.28); border-radius: 50%; inset: 18px; }
