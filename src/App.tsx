@@ -483,7 +483,7 @@ function ProjectVisual({ type }: { type: Project["visual"] }) {
           <path className="line" d="M0 145 C55 130 70 150 120 112 S185 118 225 80 S300 100 345 54 S420 78 500 22" />
         </svg>
       </div>
-      <div className="chart-foot"><span>资金规模趋势</span><b>及时续签率 +80%</b></div>
+      <div className="chart-foot"><span>资金规模趋势</span><b>到期与续签动态监控</b></div>
     </div>
     {controls}
     </div>
@@ -524,6 +524,18 @@ function ProjectBrowser({ orderedProjects }: { orderedProjects: Project[] }) {
               <div key={metric.label}><b>{metric.value}</b><span>{metric.label}</span></div>
             ))}
           </div>
+          {active.id === "dashboard" && (
+            <div className="case-analysis-summary">
+              <div>
+                <small>分析维度</small>
+                <p>{["存款规模", "银行类型", "利率水平", "到期时间", "续签优先级"].map((item) => <span key={item}>{item}</span>)}</p>
+              </div>
+              <div>
+                <small>分析输出</small>
+                <p>{["存款分布", "利率对比", "到期提醒", "续签建议"].map((item) => <span key={item}>{item}</span>)}</p>
+              </div>
+            </div>
+          )}
           <div className="case-journey">
             <div><span>01</span><section><b>业务问题</b><p>{active.problem}</p></section></div>
             <div><span>02</span><section><b>我的动作</b><p>{active.actions.join(" ")}</p></section></div>
